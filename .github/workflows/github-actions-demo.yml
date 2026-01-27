@@ -21,12 +21,12 @@ jobs:
       - name: Event that triggered workflow
         run: |
           echo  "The job was triggered by event: ${{ github.event_name }}"
-          echo  "The job name of you branch is ${{ github.ref }} and your repo is ."
+          echo  "The job name of you branch is ${{ github.ref }}"
 
       - name: Checkout
         uses: actions/checkout@v6.0.2
 
       - name: List files using ls command
         run: |
-          echo "The repo is {{ github.repository }} and files are"
+          echo "The repo is ${{ github.repository }} and files are"
           tree
