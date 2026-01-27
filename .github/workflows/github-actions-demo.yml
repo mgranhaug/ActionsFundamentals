@@ -13,10 +13,20 @@ on:
   workflow_dispatch:       # Allows manual triggering
 
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
 
     steps:
 
+      - name: Event that triggered workflow
+        run: |
+          echo  "The job was triggered by event: ${{ github.event_name }}"
+          echo  "The job name of you branch is ${{ github.ref }} and your repo is ."
+
+      - name: Checkout
+        uses: actions/checkout@6.0.2
+
       - name: List files using ls command
-        run: ls -R ${{ github.workspace }}
+        run: |
+          echo "The repo is {{ github.repository }} and files are"
+          tree
