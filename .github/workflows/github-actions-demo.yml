@@ -24,7 +24,7 @@ jobs:
           echo  "The job name of you branch is ${{ github.ref }} and your repo is ."
 
       - name: Checkout
-        uses: actions/checkout@6.0.2
+        uses: actions/checkout@v6.0.2
 
       - name: List files using ls command
         run: |
