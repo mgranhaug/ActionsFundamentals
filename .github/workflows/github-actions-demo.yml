@@ -33,6 +33,7 @@ jobs:
         run: |
           echo "The repo is ${{ github.repository }} and files are"
           tree
+
   Test:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch'
@@ -49,7 +50,7 @@ jobs:
     steps:
       - run: |
           echo "/ Testing..."
-          Sleep 15
+          sleep 15
 
   Production:
     runs-on: ubuntu-latest
