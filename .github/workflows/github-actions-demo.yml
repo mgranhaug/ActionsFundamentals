@@ -20,9 +20,7 @@ on:
 jobs:
   Build:
     runs-on: ubuntu-latest
-
     steps:
-
       - name: Event that triggered workflow
         run: |
           echo  "The job was triggered by event: ${{ github.event_name }}"
@@ -35,3 +33,44 @@ jobs:
         run: |
           echo "The repo is ${{ github.repository }} and files are"
           tree
+  Test:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    needs: Build
+    environment: Test
+    steps:
+      - run: echo "/ Testing..."
+
+  Load-Test:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    needs: Build
+    environment: Load-Test
+    steps:
+      - run: |
+          echo "/ Testing..."
+          Sleep 15
+
+  Production:
+    runs-on: ubuntu-latest
+    needs: [Test,Load-Test]
+    if: github.event.inputs.environment == 'Production'
+    environment:
+      name: Production
+      url: https://www.vg.no
+    steps:
+      - run: |
+          echo "Step 1..."
+          sleep 10
+      - run: |
+          echo "Step 2..."
+          sleep 10
+      - run: |
+          echo "Step 3..."
+          sleep 10
+      - run: |
+          echo "Step 4..."
+          sleep 10
+      - run: |
+          echo "Step 5..."
+          sleep 10
